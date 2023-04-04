@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: `https://www.omdbapi.com/`,
+    baseURL: process.env.REACT_APP_SERVICE_URL,
     timeout: 1000,
     withCredentials: false,
     params: {
-        apikey: `2ad09525`,
+        apikey: process.env.REACT_APP_API_KEY,
     },
 })
 

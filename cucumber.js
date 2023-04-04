@@ -3,6 +3,7 @@ let common = [
   '--require-module ts-node/register',
   '--require-module jsdom-global/register',
   '--require cucumber/loaders.ts',
+  '--require cucumber/dotenv.ts',
   '--require cucumber/configure-jsdom.js',
   '--require cucumber/mock-server-listen.ts',
   '--require cucumber/step-definitions/**/*.ts',
