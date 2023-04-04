@@ -5,6 +5,7 @@ import assert from 'assert'
 import App from '../../src/App';
 import { apiURL, mockServer, rest } from '../../src/server-mock'
 import moviesList from '../_mocks/movies-list';
+import { DataTable } from '@cucumber/cucumber';
 
 interface MovieInformation {
     Poster: string
@@ -31,7 +32,7 @@ export class SearchByMovieTitleSteps {
         assert(searchField)
 
         await act(async () => {
-            fireEvent.change(searchField, { target: { value: `fifth` } })
+            fireEvent.change(searchField, { target: { value: searchTerm } })
         })
     }
 
@@ -52,13 +53,11 @@ export class SearchByMovieTitleSteps {
         })
     }
 
-    @then(/I should see see a list of movies as described below/)
-    public displaySearchResult(searchResult: string) {
-        const movies: MovieInformation[] = JSON.parse(searchResult).movies
-
-        movies.forEach(movie => {
-            assert(screen.getByText(movie.Title))
-            assert(screen.getByText(movie.Year))
+    @then(/I should see see the following movies on the page/)
+    public displaySearchResult(searchResult: DataTable) {
+        searchResult.rows().forEach(movie => {
+            assert(screen.getByText(movie[0]))
+            assert(screen.getByText(movie[1]))
         });
     }
 }
