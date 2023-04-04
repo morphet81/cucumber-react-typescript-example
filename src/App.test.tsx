@@ -1,9 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, RenderResult } from '@testing-library/react'
+import App from './App'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe(`App`, () => {
+    let container: RenderResult
+
+    beforeEach(() => {
+        container = render(<App />)
+    })
+
+    test(`matches previous screenshot`, () => {
+        expect(container.baseElement).toMatchSnapshot();
+    })
+
+})
