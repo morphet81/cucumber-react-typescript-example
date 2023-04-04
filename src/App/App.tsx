@@ -1,7 +1,7 @@
-import './App.css'
+import './App.scss'
 import { Button, Card, Grid, TextField, Typography } from '@mui/material'
-import { ChangeEvent, useEffect, useState } from 'react'
-import api from './api'
+import { ChangeEvent, useState } from 'react'
+import api from '../service/api'
 
 interface MovieInformation {
     Poster: string
@@ -29,7 +29,7 @@ const MovieItem = (props: MovieItemProps) => {
             <Card>
                 <Grid container direction="row">
                     <Grid width={80} item>
-                        <img width="100%" src={movie.Poster} alt={`${movie.Title} poster image`} />
+                        <img width="100%" src={movie.Poster} alt={`${movie.Title} poster`} />
                     </Grid>
                     <Grid container item direction="column">
                         <Typography>{movie.Title}</Typography>

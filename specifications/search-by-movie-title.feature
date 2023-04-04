@@ -2,7 +2,7 @@ Feature: Search by movie title
 
     Rule: When searching a term, I should see a list of movies that match this term
 
-        Example: Search "fifth"
+        Example: Search for term "fifth"
             Given I input "fifth" in the search field
             When I click the Search button
             Then I should see the following movies on the page
@@ -12,7 +12,7 @@ Feature: Search by movie title
                 | The Woman in the Fifth      | 2011 | tt1605777 |
                 | It Happened on Fifth Avenue | 1947 | tt0039502 |
 
-        Example: Search "alien"
+        Example: Search for term "alien"
             Given I input "alien" in the search field
             When I click the Search button
             Then I should see the following movies on the page
