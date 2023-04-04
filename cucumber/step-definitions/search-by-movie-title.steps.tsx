@@ -4,16 +4,9 @@ import assert from 'assert'
 
 import App from '../../src/App';
 import { apiURL, mockServer, rest } from '../../src/server-mock'
-import moviesList from '../_mocks/movies-list';
+import moviesList from '../_mocks/search-movie/fifth';
 import { DataTable } from '@cucumber/cucumber';
-
-interface MovieInformation {
-    Poster: string
-    Title: string
-    Type: string
-    Year: string
-    imdbID: string
-}
+import moviesResultsDataset from '../_mocks/search-movie/search-movie';
 
 @binding()
 export class SearchByMovieTitleSteps {
@@ -26,13 +19,19 @@ export class SearchByMovieTitleSteps {
     }
 
     @given(/I input "([^"]*)" in the search field/)
-    public async givenSearchTerm(searchTerm: string) {
+    public async givenSearchTerm(movieTitle: string) {
         const searchField = screen.getByLabelText("Title, Actor, etc...")
 
         assert(searchField)
 
+        mockServer.use(
+            rest.get(apiURL(`/`), (_, res, ctx) => {
+                return res(ctx.body(JSON.stringify(moviesResultsDataset[movieTitle])))
+            })
+        )
+
         await act(async () => {
-            fireEvent.change(searchField, { target: { value: searchTerm } })
+            fireEvent.change(searchField, { target: { value: movieTitle } })
         })
     }
 
@@ -42,18 +41,12 @@ export class SearchByMovieTitleSteps {
 
         assert(searchButton)
 
-        mockServer.use(
-            rest.get(apiURL(`/`), (_, res, ctx) => {
-                return res(ctx.body(JSON.stringify(moviesList)))
-            })
-        )
-
         await act(async () => {
             fireEvent.click(searchButton)
         })
     }
 
-    @then(/I should see see the following movies on the page/)
+    @then(/I should see the following movies on the page/)
     public displaySearchResult(searchResult: DataTable) {
         searchResult.rows().forEach(movie => {
             assert(screen.getByText(movie[0]))
