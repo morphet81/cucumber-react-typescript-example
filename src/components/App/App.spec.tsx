@@ -2,8 +2,8 @@ import { RenderResult, act, fireEvent, render, screen } from '@testing-library/r
 const { defineFeature, loadFeature } = require('jest-cucumber');
 
 import App from './App';
-import { apiURL, mockServer, rest } from '../service/server-mock'
-import moviesResultsDataset from '../service/_mocks/search-movie/search-movie'
+import { apiURL, mockServer, rest } from '../../service/server-mock'
+import moviesResultsDataset from '../../service/_mocks/search-movie/search-movie'
 
 const feature = loadFeature('./specifications/search-by-movie-title.feature');
 
